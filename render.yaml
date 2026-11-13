@@ -27,12 +27,13 @@ services:
     rootDir: backend
     dockerfilePath: ./Dockerfile
     dockerContext: .
-    # Apply pending migrations, then start. The runtime image keeps the Prisma CLI (see backend/Dockerfile).
-    dockerCommand: sh -c "npx prisma migrate deploy && node dist/main"
     healthCheckPath: /api/v1/health
     envVars:
       - key: NODE_ENV
         value: production
+      # Applies pending Prisma migrations on boot (see CMD in backend/Dockerfile).
+      - key: RUN_MIGRATIONS
+        value: 'true'
       - key: PORT
         value: '10000'
       # main.ts accepts a hop count or "true"; Render's proxy chain length is not fixed.
