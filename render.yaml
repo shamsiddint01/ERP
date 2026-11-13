@@ -62,7 +62,6 @@ services:
   - type: web
     name: erp-edu-web
     runtime: static
-    plan: free
     branch: main
     rootDir: frontend
     buildCommand: npm ci && npm run build
